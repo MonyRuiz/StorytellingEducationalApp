@@ -1,0 +1,21 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-storytellingeducationalapp-dev-154738-authRole",
+      "UnauthRoleArn": "arn:aws:iam::820972577264:role/amplify-storytellingeducationalapp-dev-154738-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::820972577264:role/amplify-storytellingeducationalapp-dev-154738-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-storytellingeducationalapp-dev-154738-deployment",
+      "UnauthRoleName": "amplify-storytellingeducationalapp-dev-154738-unauthRole",
+      "StackName": "amplify-storytellingeducationalapp-dev-154738",
+      "StackId": "arn:aws:cloudformation:us-east-1:820972577264:stack/amplify-storytellingeducationalapp-dev-154738/53aecac0-bb73-11ec-b78c-12fd9f8e5353",
+      "AmplifyAppId": "d2n439gfczqtln"
+    },
+    "categories": {
+      "auth": {
+        "storytellingeducationalapp60580bec": {},
+        "true": {}
+      }
+    }
+  }
+}
