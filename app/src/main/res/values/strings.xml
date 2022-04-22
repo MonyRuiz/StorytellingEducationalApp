@@ -10,7 +10,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_all">All stories</string>
+    <string name="menu_home">Home</string>
     <string name="menu_categories">Categories</string>
     <string name="menu_favorites">Favorites</string>
 
