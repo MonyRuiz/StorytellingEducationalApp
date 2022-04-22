@@ -1,16 +1,16 @@
-package com.example.storytellingeducationalapp.ui.slideshow;
+package com.example.storytellingeducationalapp.ui.categories;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class CategoriesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public CategoriesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {

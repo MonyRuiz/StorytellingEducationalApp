@@ -1,4 +1,4 @@
-package com.example.storytellingeducationalapp.ui.slideshow;
+package com.example.storytellingeducationalapp.ui.favorites;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,24 +12,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.storytellingeducationalapp.R;
-import com.example.storytellingeducationalapp.databinding.FragmentSlideshowBinding;
+import com.example.storytellingeducationalapp.databinding.FragmentFavoritesBinding;
+//import com.example.storytellingeducationalapp.databinding.FragmentSlideshowBinding;
 
-public class SlideshowFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
-    private FragmentSlideshowBinding binding;
+    private FavoritesViewModel favoritesViewModel;
+    private FragmentFavoritesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        favoritesViewModel =
+                new ViewModelProvider(this).get(FavoritesViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentFavoritesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView textView = binding.textFavorites;
+        favoritesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
