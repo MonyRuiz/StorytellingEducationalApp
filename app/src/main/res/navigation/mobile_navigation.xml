@@ -32,4 +32,9 @@
         android:name="com.example.storytellingeducationalapp.ui.about.AboutFragment"
         android:label="About us"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/nav_all"
+        android:name="com.example.storytellingeducationalapp.ui.all.AllFragment"
+        android:label="All Stories"
+        tools:layout="@layout/fragment_all" />
 </navigation>
