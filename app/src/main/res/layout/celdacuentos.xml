@@ -22,7 +22,7 @@
             app:srcCompat="@drawable/foca" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="450dp"
             android:layout_height="164dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
@@ -32,9 +32,12 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
+                android:fontFamily="serif"
                 android:text="el rey león"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,16 +48,18 @@
                 <Button
                     android:id="@+id/btnPlay"
                     android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/play" />
+                    android:background="@drawable/btnplay_500" />
 
                 <Button
                     android:id="@+id/btnMore"
                     android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/_points" />
+                    android:background="@drawable/_dots_500" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
