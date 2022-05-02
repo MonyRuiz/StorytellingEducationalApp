@@ -46,16 +46,25 @@ public class AllFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        listView = (ListView) container.findViewById(R.id.listStories);
+        //listView = (ListView) container.findViewById(R.id.listStories);
 
+        View view = inflater.inflate(R.layout.fragment_all, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        listView = (ListView) view.findViewById(R.id.listStories);
         cuentos = new ArrayList<Modelo>();
 
         Drawable img1 = getResources().getDrawable(R.drawable.foca);
         Drawable img2 = getResources().getDrawable(R.drawable.btnplay);
         Drawable img3 = getResources().getDrawable(R.drawable.categories);
 
-        Button btnPlay = (Button) container.findViewById(R.id.btnPlay);
-        Button btnMore = (Button) container.findViewById(R.id.btnMore);
+        Button btnPlay = (Button) view.findViewById(R.id.btnPlay);
+        Button btnMore = (Button) view.findViewById(R.id.btnMore);
 
         Modelo usuario1 = new Modelo("La foca", btnPlay, btnMore, img1);
         Modelo usuario2 = new Modelo("Un boton de Play", btnPlay, btnMore, img2);
@@ -65,14 +74,6 @@ public class AllFragment extends Fragment {
         cuentos.add(usuario1);
         cuentos.add(usuario2);
         cuentos.add(usuario3);
-
-
-        return inflater.inflate(R.layout.fragment_all, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         adaptadorBase = new AdaptadorBase( getActivity(), cuentos);
         listView.setAdapter(adaptadorBase);
