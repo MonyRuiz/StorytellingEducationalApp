@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4CC2F1"
+        android:background="#F5F5F5"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +26,7 @@
             android:layout_width="450dp"
             android:layout_height="164dp"
             android:layout_margin="5dp"
+            android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -32,35 +34,27 @@
                 android:id="@+id/txtCategory"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_marginTop="50dp"
                 android:fontFamily="serif"
-                android:text="el rey león"
+                android:text="Fairy Tales"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnCollection"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="#4CC2F1"
+                android:text="See Collection" />
 
-                <Button
-                    android:id="@+id/btnCollection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="65dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btnplay_500" />
-
-                <Button
-                    android:id="@+id/btnMore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="65dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/_dots_500" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

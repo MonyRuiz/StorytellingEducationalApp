@@ -1,15 +1,15 @@
-package com.example.storytellingeducationalapp;
+package com.example.storytellingeducationalapp.ui.modelos;
 
 import android.graphics.drawable.Drawable;
 import android.widget.Button;
 
-public class Modelo {
+public class ModeloCuentos {
     public String txtTitle;
     public Button btnPlay;
     public Button btnMore;
     public Drawable imgStory;
 
-    public Modelo(String txtStory, Button btnPlay, Button btnMore, Drawable imgStory){
+    public ModeloCuentos(String txtStory, Button btnPlay, Button btnMore, Drawable imgStory){
         this.txtTitle = txtStory;
         this.btnPlay = btnPlay;
         this.btnMore = btnMore;

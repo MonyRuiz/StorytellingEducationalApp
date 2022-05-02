@@ -1,4 +1,4 @@
-package com.example.storytellingeducationalapp;
+package com.example.storytellingeducationalapp.ui.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,15 +9,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.storytellingeducationalapp.ui.all.AllFragment;
+import com.example.storytellingeducationalapp.R;
+import com.example.storytellingeducationalapp.ui.modelos.ModeloCuentos;
 
 import java.util.ArrayList;
 
-public class AdaptadorBase extends BaseAdapter {
+public class AdaptadorListaCuentos extends BaseAdapter {
     private Context context;
-    private ArrayList<Modelo> cuentos;
+    private ArrayList<ModeloCuentos> cuentos;
 
-    public AdaptadorBase(Context _context, ArrayList<Modelo> _cuentos){
+    public AdaptadorListaCuentos(Context _context, ArrayList<ModeloCuentos> _cuentos){
         this.context = _context;
         this.cuentos = _cuentos;
     }
@@ -44,22 +45,22 @@ public class AdaptadorBase extends BaseAdapter {
                     .inflate(R.layout.celdacuentos, parent, false);
         }
 
-        Modelo modelo = (Modelo)getItem(position);
+        ModeloCuentos modeloCuentos = (ModeloCuentos)getItem(position);
 
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.txtTitle);
-        Button btnPlay = (Button) convertView.findViewById(R.id.btnPlay);
+        TextView txtTitle = (TextView) convertView.findViewById(R.id.txtCategory);
+        Button btnPlay = (Button) convertView.findViewById(R.id.btnCollection);
         Button btnMore = (Button) convertView.findViewById(R.id.btnMore);
-        ImageView imgStory = (ImageView) convertView.findViewById(R.id.imgStory);
+        ImageView imgStory = (ImageView) convertView.findViewById(R.id.imgCategory);
 
-        txtTitle.setText(modelo.txtTitle);
+        txtTitle.setText(modeloCuentos.txtTitle);
         //btnMore.setOnClickListener(modelo.btnPlay.getOn);
-        imgStory.setImageDrawable(modelo.imgStory);
+        imgStory.setImageDrawable(modeloCuentos.imgStory);
 
 
         return convertView;
     }
 
-    public void actualizarLista(ArrayList<Modelo> nuevaLista){
+    public void actualizarLista(ArrayList<ModeloCuentos> nuevaLista){
         this.cuentos = nuevaLista;
         notifyDataSetChanged();
     }
