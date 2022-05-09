@@ -54,21 +54,27 @@ public class AllFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listStories);
         cuentos = new ArrayList<ModeloCuentos>();
 
-        Drawable img1 = getResources().getDrawable(R.drawable.foca);
-        Drawable img2 = getResources().getDrawable(R.drawable.btnplay);
-        Drawable img3 = getResources().getDrawable(R.drawable.categories);
+        Drawable img1 = getResources().getDrawable(R.drawable.leonraton);
+        Drawable img2 = getResources().getDrawable(R.drawable.vaca);
+        Drawable img3 = getResources().getDrawable(R.drawable.serpienteorangutan);
+        Drawable img4 = getResources().getDrawable(R.drawable.zorroliebre);
+        Drawable img5 = getResources().getDrawable(R.drawable.tortugacaiman);
 
         Button btnPlay = (Button) view.findViewById(R.id.btnCollection);
         Button btnMore = (Button) view.findViewById(R.id.btnMore);
 
-        ModeloCuentos usuario1 = new ModeloCuentos("La foca", btnPlay, btnMore, img1);
-        ModeloCuentos usuario2 = new ModeloCuentos("Un boton de Play", btnPlay, btnMore, img2);
-        ModeloCuentos usuario3 = new ModeloCuentos("Un Categories", btnPlay, btnMore, img3);
+        ModeloCuentos usuario1 = new ModeloCuentos("El León y el Ratón", btnPlay, btnMore, img1);
+        ModeloCuentos usuario2 = new ModeloCuentos("La Vaca lechera", btnPlay, btnMore, img2);
+        ModeloCuentos usuario3 = new ModeloCuentos("La Serpiente y el Orangután", btnPlay, btnMore, img3);
+        ModeloCuentos usuario4 = new ModeloCuentos("El Zorro y la Liebre", btnPlay, btnMore, img4);
+        ModeloCuentos usuario5 = new ModeloCuentos("La Tortuga y el Caiman", btnPlay, btnMore, img5);
 
 
         cuentos.add(usuario1);
         cuentos.add(usuario2);
         cuentos.add(usuario3);
+        cuentos.add(usuario4);
+        cuentos.add(usuario5);
 
         adaptadorListaCuentos = new AdaptadorListaCuentos( getActivity(), cuentos);
         listView.setAdapter(adaptadorListaCuentos);

@@ -8,6 +8,10 @@ import android.util.Log;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.predictions.models.VoiceType;
+import com.amplifyframework.predictions.options.TextToSpeechOptions;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +22,11 @@ import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    class voice implements VoiceType{
+        public String getName(){
+            return "Justin";
+        }
+    }
 
     private final MediaPlayer mp = new MediaPlayer();
 
@@ -26,9 +34,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        voice voz = new voice();
+
+        TextToSpeechOptions.Builder builder = new TextToSpeechOptions.Builder();
+        builder.voiceType(voz);
 
         Amplify.Predictions.convertTextToSpeech(
-                "I like to eat spaghetti",
+                "I like to eat spaghetti", builder.build(),
                 result -> playAudio(result.getAudioData()),
                 error -> Log.e("MyAmplifyApp", "Conversion failed", error)
         );

@@ -53,20 +53,26 @@ public class CategoriesFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listCategories);
         categorias = new ArrayList<ModeloCategorias>();
 
-        Drawable img1 = getResources().getDrawable(R.drawable.foca);
-        Drawable img2 = getResources().getDrawable(R.drawable.btnplay);
-        Drawable img3 = getResources().getDrawable(R.drawable.categories);
+        Drawable img1 = getResources().getDrawable(R.drawable.fairytales);
+        Drawable img2 = getResources().getDrawable(R.drawable.fable);
+        Drawable img3 = getResources().getDrawable(R.drawable.history);
+        Drawable img4 = getResources().getDrawable(R.drawable.suspense);
+        Drawable img5 = getResources().getDrawable(R.drawable.farm);
 
         Button btnPlay = (Button) view.findViewById(R.id.btnCollection);
 
-        ModeloCategorias usuario1 = new ModeloCategorias("La foca", btnPlay, img1);
-        ModeloCategorias usuario2 = new ModeloCategorias("Un boton de Play", btnPlay,  img2);
-        ModeloCategorias usuario3 = new ModeloCategorias("Un Categories", btnPlay,  img3);
+        ModeloCategorias usuario1 = new ModeloCategorias("Fairy Tales", btnPlay, img1);
+        ModeloCategorias usuario2 = new ModeloCategorias("Fable", btnPlay,  img2);
+        ModeloCategorias usuario3 = new ModeloCategorias("History", btnPlay,  img3);
+        ModeloCategorias usuario4 = new ModeloCategorias("Suspense", btnPlay,  img4);
+        ModeloCategorias usuario5 = new ModeloCategorias("Farm", btnPlay,  img5);
 
 
         categorias.add(usuario1);
         categorias.add(usuario2);
         categorias.add(usuario3);
+        categorias.add(usuario4);
+        categorias.add(usuario5);
 
         adaptadorListaCategorias = new AdaptadorListaCategorias( getActivity(), categorias);
         listView.setAdapter(adaptadorListaCategorias);
