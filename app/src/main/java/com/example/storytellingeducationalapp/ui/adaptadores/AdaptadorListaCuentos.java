@@ -1,6 +1,7 @@
 package com.example.storytellingeducationalapp.ui.adaptadores;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.storytellingeducationalapp.R;
 import com.example.storytellingeducationalapp.ui.modelos.ModeloCuentos;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -50,12 +53,22 @@ public class AdaptadorListaCuentos extends BaseAdapter {
         TextView txtTitle = (TextView) convertView.findViewById(R.id.txtCategory);
         Button btnPlay = (Button) convertView.findViewById(R.id.btnCollection);
         Button btnMore = (Button) convertView.findViewById(R.id.btnMore);
-        ImageView imgStory = (ImageView) convertView.findViewById(R.id.imgCategory);
+        ImageView imgStory = (ImageView) convertView.findViewById(R.id.imgStory);
 
         txtTitle.setText(modeloCuentos.txtTitle);
         //btnMore.setOnClickListener(modelo.btnPlay.getOn);
-        imgStory.setImageDrawable(modeloCuentos.imgStory);
+        //imgStory.setImageDrawable(modeloCuentos.imgStory);
 
+        try {
+            Picasso
+                    .get()
+                    .load(modeloCuentos.imgStory)
+                    //.fit()
+                    .into(imgStory);
+        }catch (Exception exception){
+            //Toast.makeText(context,"Error: "+exception.toString(), Toast.LENGTH_LONG).show();//display the response on screen
+            Log.e("Adaptador: ",exception.toString());
+        }
 
         return convertView;
     }

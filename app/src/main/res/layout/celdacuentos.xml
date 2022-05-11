@@ -14,9 +14,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imgCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="164dp"
+            android:id="@+id/imgStory"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/foca" />

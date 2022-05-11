@@ -7,13 +7,17 @@ public class ModeloCuentos {
     public String txtTitle;
     public Button btnPlay;
     public Button btnMore;
-    public Drawable imgStory;
+    public String imgStory;
 
-    public ModeloCuentos(String txtStory, Button btnPlay, Button btnMore, Drawable imgStory){
+    public ModeloCuentos(String txtStory, Button btnPlay, Button btnMore, String imgStory){
         this.txtTitle = txtStory;
         this.btnPlay = btnPlay;
         this.btnMore = btnMore;
         this.imgStory = imgStory;
+    }
+
+    public ModeloCuentos() {
+
     }
 
     public String getTxtTitle(){ return this.txtTitle; }
@@ -24,7 +28,7 @@ public class ModeloCuentos {
 
     public Button getBtnMore(){ return  this.btnMore;}
 
-    public Drawable getImgStory(){
+    public String getImgStory(){
         return this.imgStory;
     }
 }

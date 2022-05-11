@@ -2,7 +2,11 @@ package com.example.storytellingeducationalapp.ui.all;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,15 +18,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.storytellingeducationalapp.ui.adaptadores.AdaptadorListaCuentos;
 import com.example.storytellingeducationalapp.ui.modelos.ModeloCuentos;
 import com.example.storytellingeducationalapp.R;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AllFragment extends Fragment {
 
@@ -32,7 +51,14 @@ public class AllFragment extends Fragment {
     private ArrayAdapter<String> listAdapter;
     private AdaptadorListaCuentos adaptadorListaCuentos;
     private ArrayList<ModeloCuentos> cuentos;
+    Button btnPlay;
+    Button btnMore;
 
+    private RequestQueue mRequestQueue;
+    private StringRequest mStringRequest;
+    private String url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=cuentos";
+    private JSONArray resultadoJsonArray;
+    String respuesta;
     public static AllFragment newInstance() {
         return new AllFragment();
     }
@@ -54,31 +80,7 @@ public class AllFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listStories);
         cuentos = new ArrayList<ModeloCuentos>();
 
-        Drawable img1 = getResources().getDrawable(R.drawable.leonraton);
-        Drawable img2 = getResources().getDrawable(R.drawable.vaca);
-        Drawable img3 = getResources().getDrawable(R.drawable.serpienteorangutan);
-        Drawable img4 = getResources().getDrawable(R.drawable.zorroliebre);
-        Drawable img5 = getResources().getDrawable(R.drawable.tortugacaiman);
-
-        Button btnPlay = (Button) view.findViewById(R.id.btnCollection);
-        Button btnMore = (Button) view.findViewById(R.id.btnMore);
-
-        ModeloCuentos usuario1 = new ModeloCuentos("El León y el Ratón", btnPlay, btnMore, img1);
-        ModeloCuentos usuario2 = new ModeloCuentos("La Vaca lechera", btnPlay, btnMore, img2);
-        ModeloCuentos usuario3 = new ModeloCuentos("La Serpiente y el Orangután", btnPlay, btnMore, img3);
-        ModeloCuentos usuario4 = new ModeloCuentos("El Zorro y la Liebre", btnPlay, btnMore, img4);
-        ModeloCuentos usuario5 = new ModeloCuentos("La Tortuga y el Caiman", btnPlay, btnMore, img5);
-
-
-        cuentos.add(usuario1);
-        cuentos.add(usuario2);
-        cuentos.add(usuario3);
-        cuentos.add(usuario4);
-        cuentos.add(usuario5);
-
-        adaptadorListaCuentos = new AdaptadorListaCuentos( getActivity(), cuentos);
-        listView.setAdapter(adaptadorListaCuentos);
-
+        mostrarLista();
     }
 
     @Override
@@ -86,6 +88,80 @@ public class AllFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(AllViewModel.class);
         // TODO: Use the ViewModel
+
+
     }
+
+    private void mostrarLista(){
+        sendAndRequestResponse();
+        adaptadorListaCuentos = new AdaptadorListaCuentos( getActivity(), cuentos);
+        listView.setAdapter(adaptadorListaCuentos);
+    }
+
+
+    private void sendAndRequestResponse() {
+
+        //RequestQueue initialized
+        mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+        //String Request initialized
+        mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                respuesta = response;
+                //Toast.makeText(getActivity().getApplicationContext(),respuesta, Toast.LENGTH_LONG).show();//display the response on screen
+
+                try {
+                    JSONObject resultadoJSONObject = new JSONObject(respuesta);
+                    resultadoJsonArray = resultadoJSONObject.getJSONArray("Data");
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+                if(resultadoJsonArray != null){
+                /*
+                Establecer informacion al adapter
+                Colocar el adapter en la lista
+                * */
+                    ModeloCuentos cuento = null;
+                    for (int i = 0; i < resultadoJsonArray.length(); i++){
+                        try {
+                            JSONObject jsonObject = resultadoJsonArray.getJSONObject(i);
+                            cuento = new ModeloCuentos();
+                            cuento.txtTitle = (String)jsonObject.get("nombreCuento");
+                            cuento.imgStory = (String)jsonObject.get("imgPortada");
+                            //ImageView imageView = (ImageView) getActivity().findViewById(R.id.imgStory);
+                            try {
+
+                                //Picasso.get().load("http://naturalbeauty.ddns.net/SEAProject/Recursos/Cuentos/1.png").into(imageView);
+                                //cuento.imgStory = imageView.getDrawable();
+                            }catch (Exception exception){
+                                exception.printStackTrace();
+                                //cuento.imgStory = (Drawable) getResources().getDrawable(R.drawable.farm);
+                            }
+
+                            cuentos.add(cuento);
+                        }catch (JSONException e){
+
+                        }
+                    }
+                    listView.setAdapter(adaptadorListaCuentos);
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(),"Error: El resultadoJsonArray esta vacio", Toast.LENGTH_LONG).show();//display the response on screen
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getActivity().getApplicationContext(),"Error: "+error.toString(), Toast.LENGTH_LONG).show();//display the response on screen
+
+            }
+        });
+
+        mRequestQueue.add(mStringRequest);
+    }
+
 
 }

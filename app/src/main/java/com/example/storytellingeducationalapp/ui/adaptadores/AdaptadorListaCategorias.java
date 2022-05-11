@@ -51,7 +51,7 @@ public class AdaptadorListaCategorias extends BaseAdapter {
 
         TextView txtCategory = (TextView) convertView.findViewById(R.id.txtCategory);
         Button btnCollection = (Button) convertView.findViewById(R.id.btnCollection);
-        ImageView imgCategory = (ImageView) convertView.findViewById(R.id.imgCategory);
+        ImageView imgCategory = (ImageView) convertView.findViewById(R.id.imgStory);
 
         txtCategory.setText(modeloCategorias.txtCategory);
         //btnMore.setOnClickListener(modelo.btnPlay.getOn);
