@@ -7,12 +7,16 @@ public class ModeloCategorias {
 
     public String txtCategory;
     public Button btnCollection;
-    public Drawable imgCategory;
+    public String imgCategory;
 
-    public ModeloCategorias(String txtStory, Button btnCollection, Drawable imgCategory){
+    public ModeloCategorias(String txtStory, Button btnCollection, String imgCategory){
         this.txtCategory = txtStory;
         this.btnCollection = btnCollection;
         this.imgCategory = imgCategory;
+    }
+
+    public ModeloCategorias() {
+
     }
 
     public String getTxtCategory(){ return this.txtCategory; }
@@ -22,7 +26,7 @@ public class ModeloCategorias {
     }
 
 
-    public Drawable getImgCategory(){
+    public String getImgCategory(){
         return this.imgCategory;
     }
 

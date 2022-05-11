@@ -1,6 +1,7 @@
 package com.example.storytellingeducationalapp.ui.adaptadores;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.storytellingeducationalapp.R;
 import com.example.storytellingeducationalapp.ui.modelos.ModeloCategorias;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -55,8 +57,17 @@ public class AdaptadorListaCategorias extends BaseAdapter {
 
         txtCategory.setText(modeloCategorias.txtCategory);
         //btnMore.setOnClickListener(modelo.btnPlay.getOn);
-        imgCategory.setImageDrawable(modeloCategorias.imgCategory);
 
+        try {
+            Picasso
+                    .get()
+                    .load(modeloCategorias.imgCategory)
+                    //.fit()
+                    .into(imgCategory);
+        }catch (Exception exception){
+            //Toast.makeText(context,"Error: "+exception.toString(), Toast.LENGTH_LONG).show();//display the response on screen
+            Log.e("Adaptador: ",exception.toString());
+        }
 
         return convertView;
     }

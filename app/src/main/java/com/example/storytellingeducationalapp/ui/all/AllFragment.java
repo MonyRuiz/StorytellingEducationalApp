@@ -48,17 +48,15 @@ public class AllFragment extends Fragment {
     private AllViewModel mViewModel;
 
     private ListView listView;
-    private ArrayAdapter<String> listAdapter;
     private AdaptadorListaCuentos adaptadorListaCuentos;
     private ArrayList<ModeloCuentos> cuentos;
-    Button btnPlay;
-    Button btnMore;
 
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
     private String url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=cuentos";
     private JSONArray resultadoJsonArray;
     String respuesta;
+
     public static AllFragment newInstance() {
         return new AllFragment();
     }
@@ -130,15 +128,6 @@ public class AllFragment extends Fragment {
                             cuento = new ModeloCuentos();
                             cuento.txtTitle = (String)jsonObject.get("nombreCuento");
                             cuento.imgStory = (String)jsonObject.get("imgPortada");
-                            //ImageView imageView = (ImageView) getActivity().findViewById(R.id.imgStory);
-                            try {
-
-                                //Picasso.get().load("http://naturalbeauty.ddns.net/SEAProject/Recursos/Cuentos/1.png").into(imageView);
-                                //cuento.imgStory = imageView.getDrawable();
-                            }catch (Exception exception){
-                                exception.printStackTrace();
-                                //cuento.imgStory = (Drawable) getResources().getDrawable(R.drawable.farm);
-                            }
 
                             cuentos.add(cuento);
                         }catch (JSONException e){

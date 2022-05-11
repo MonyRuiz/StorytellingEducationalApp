@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.storytellingeducationalapp.R;
 import com.example.storytellingeducationalapp.ui.modelos.ModeloCuentos;
