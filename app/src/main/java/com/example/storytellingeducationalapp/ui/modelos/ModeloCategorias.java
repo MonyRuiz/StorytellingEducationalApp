@@ -11,7 +11,6 @@ public class ModeloCategorias {
     public String txtCategory;
     public Button btnCollection;
     public String imgCategory;
-    public Activity activity;
 
     public ModeloCategorias(String txtStory, Button btnCollection, String imgCategory){
         this.txtCategory = txtStory;

@@ -1,5 +1,6 @@
 package com.example.storytellingeducationalapp.ui.modelos;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.widget.Button;
 

@@ -1,5 +1,6 @@
 package com.example.storytellingeducationalapp.ui.adaptadores;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -26,10 +27,10 @@ import java.util.ArrayList;
 
 public class AdaptadorListaCategorias extends BaseAdapter {
 
-    private Context context;
+    private Activity context;
     private ArrayList<ModeloCategorias> categorias;
 
-    public AdaptadorListaCategorias(Context _context, ArrayList<ModeloCategorias> _categorias){
+    public AdaptadorListaCategorias(Activity _context, ArrayList<ModeloCategorias> _categorias){
         this.context = _context;
         this.categorias = _categorias;
     }
@@ -71,7 +72,7 @@ public class AdaptadorListaCategorias extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putString("idCategoria", modeloCategorias.txtId);
 
-                NavController navController = Navigation.findNavController(modeloCategorias.activity, R.id.nav_host_fragment_content_drawer);
+                NavController navController = Navigation.findNavController(context, R.id.nav_host_fragment_content_drawer);
                 navController.navigate(R.id.nav_all, bundle);
 
                 /*

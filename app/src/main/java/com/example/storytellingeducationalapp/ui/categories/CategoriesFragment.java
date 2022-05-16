@@ -108,7 +108,6 @@ public class CategoriesFragment extends Fragment {
                             categoria.txtCategory = (String)jsonObject.get("nombreCategoria");
                             categoria.imgCategory = (String)jsonObject.get("urlImagen");
                             categoria.txtId = (String)jsonObject.get("idCategoria");
-                            categoria.activity = getActivity();
 
                             categorias.add(categoria);
                         }catch (JSONException e){
