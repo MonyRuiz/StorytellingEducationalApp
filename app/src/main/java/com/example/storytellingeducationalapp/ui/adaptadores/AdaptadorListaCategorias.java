@@ -1,6 +1,8 @@
 package com.example.storytellingeducationalapp.ui.adaptadores;
 
+import android.app.FragmentManager;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.storytellingeducationalapp.R;
+import com.example.storytellingeducationalapp.ui.all.AllFragment;
 import com.example.storytellingeducationalapp.ui.modelos.ModeloCategorias;
 import com.squareup.picasso.Picasso;
 
@@ -56,7 +63,32 @@ public class AdaptadorListaCategorias extends BaseAdapter {
         ImageView imgCategory = (ImageView) convertView.findViewById(R.id.imgStory);
 
         txtCategory.setText(modeloCategorias.txtCategory);
-        //btnMore.setOnClickListener(modelo.btnPlay.getOn);
+        btnCollection.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("idCategoria", modeloCategorias.txtId);
+
+                NavController navController = Navigation.findNavController(modeloCategorias.activity, R.id.nav_host_fragment_content_drawer);
+                navController.navigate(R.id.nav_all, bundle);
+
+                /*
+                AllFragment fr = new AllFragment();
+
+                modeloCategorias.fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.nav_default_enter_anim,
+                            R.anim.nav_default_exit_anim,
+                            R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
+                    .replace(R.id.nav_host_fragment_container, fr)
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit();
+
+                 */
+            }
+        });
 
         try {
             Picasso

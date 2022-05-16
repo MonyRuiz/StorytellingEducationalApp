@@ -62,6 +62,16 @@ public class AllFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            String idCategoria = getArguments().getString("idCategoria");
+            url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=buscarCuentosID&idCategoria="+idCategoria;
+        }
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
