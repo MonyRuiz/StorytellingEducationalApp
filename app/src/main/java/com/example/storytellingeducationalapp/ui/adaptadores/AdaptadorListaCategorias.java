@@ -75,19 +75,6 @@ public class AdaptadorListaCategorias extends BaseAdapter {
                 NavController navController = Navigation.findNavController(context, R.id.nav_host_fragment_content_drawer);
                 navController.navigate(R.id.nav_all, bundle);
 
-                /*
-                AllFragment fr = new AllFragment();
-
-                modeloCategorias.fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.nav_default_enter_anim,
-                            R.anim.nav_default_exit_anim,
-                            R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
-                    .replace(R.id.nav_host_fragment_container, fr)
-                    .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit();
-
-                 */
             }
         });
 

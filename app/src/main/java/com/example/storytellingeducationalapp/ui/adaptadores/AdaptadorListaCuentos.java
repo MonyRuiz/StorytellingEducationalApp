@@ -1,6 +1,8 @@
 package com.example.storytellingeducationalapp.ui.adaptadores;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.storytellingeducationalapp.R;
 import com.example.storytellingeducationalapp.ui.modelos.ModeloCuentos;
 import com.squareup.picasso.Picasso;
@@ -17,10 +22,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class AdaptadorListaCuentos extends BaseAdapter {
-    private Context context;
+    private Activity context;
     private ArrayList<ModeloCuentos> cuentos;
 
-    public AdaptadorListaCuentos(Context _context, ArrayList<ModeloCuentos> _cuentos){
+    public AdaptadorListaCuentos(Activity _context, ArrayList<ModeloCuentos> _cuentos){
         this.context = _context;
         this.cuentos = _cuentos;
     }
@@ -55,8 +60,23 @@ public class AdaptadorListaCuentos extends BaseAdapter {
         ImageView imgStory = (ImageView) convertView.findViewById(R.id.imgStory);
 
         txtTitle.setText(modeloCuentos.txtTitle);
-        //btnMore.setOnClickListener(modelo.btnPlay.getOn);
-        //imgStory.setImageDrawable(modeloCuentos.imgStory);
+
+        btnPlay.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("idStory", modeloCuentos.txtId);
+                bundle.putString("txtTitle", modeloCuentos.txtTitle);
+                bundle.putString("txtDescription", modeloCuentos.txtDescription);
+                bundle.putString("imgStory", modeloCuentos.imgStory);
+
+                NavController navController = Navigation.findNavController(context, R.id.nav_host_fragment_content_drawer);
+                navController.navigate(R.id.nav_info_story, bundle);
+
+            }
+        });
 
         try {
             Picasso

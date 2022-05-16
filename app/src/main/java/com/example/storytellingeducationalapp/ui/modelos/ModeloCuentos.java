@@ -5,13 +5,16 @@ import android.graphics.drawable.Drawable;
 import android.widget.Button;
 
 public class ModeloCuentos {
+    public String txtId;
     public String txtTitle;
+    public String txtDescription;
     public Button btnPlay;
     public Button btnMore;
     public String imgStory;
 
-    public ModeloCuentos(String txtStory, Button btnPlay, Button btnMore, String imgStory){
+    public ModeloCuentos(String txtStory, String txtDescription, Button btnPlay, Button btnMore, String imgStory){
         this.txtTitle = txtStory;
+        this.txtDescription = txtDescription;
         this.btnPlay = btnPlay;
         this.btnMore = btnMore;
         this.imgStory = imgStory;

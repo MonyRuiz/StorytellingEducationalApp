@@ -37,4 +37,14 @@
         android:name="com.example.storytellingeducationalapp.ui.all.AllFragment"
         android:label="All Stories"
         tools:layout="@layout/fragment_all" />
+    <fragment
+        android:id="@+id/nav_info_story"
+        android:name="com.example.storytellingeducationalapp.ui.infoCuento.InfoCuentoFragment"
+        android:label="Info Story"
+        tools:layout="@layout/fragment_info_cuento" />
+    <fragment
+        android:id="@+id/nav_lectura_cuento"
+        android:name="com.example.storytellingeducationalapp.ui.lecture.LectureFragment"
+        android:label="Lectura Cuento"
+        tools:layout="@layout/fragment_lectura_cuento" />
 </navigation>

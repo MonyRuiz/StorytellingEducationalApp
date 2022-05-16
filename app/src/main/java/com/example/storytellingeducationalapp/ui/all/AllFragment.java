@@ -136,7 +136,9 @@ public class AllFragment extends Fragment {
                         try {
                             JSONObject jsonObject = resultadoJsonArray.getJSONObject(i);
                             cuento = new ModeloCuentos();
+                            cuento.txtId = (String)jsonObject.get("idCuento");
                             cuento.txtTitle = (String)jsonObject.get("nombreCuento");
+                            cuento.txtDescription = (String)jsonObject.get("sinopsis");
                             cuento.imgStory = (String)jsonObject.get("imgPortada");
 
                             cuentos.add(cuento);
