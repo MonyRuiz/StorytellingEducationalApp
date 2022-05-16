@@ -38,6 +38,7 @@ public class InfoCuentoFragment extends Fragment {
     private String title;
     private String description;
     private String imgStory;
+    private String numPaginas;
 
     public static InfoCuentoFragment newInstance() {
         return new InfoCuentoFragment();
@@ -51,6 +52,7 @@ public class InfoCuentoFragment extends Fragment {
             title = getArguments().getString("txtTitle");
             description = getArguments().getString("txtDescription");
             imgStory = getArguments().getString("imgStory");
+            numPaginas = getArguments().getString("numPaginas");
         }
     }
 
@@ -94,6 +96,8 @@ public class InfoCuentoFragment extends Fragment {
             {
                 Bundle bundle = new Bundle();
                 bundle.putString("idStory", idStory);
+                bundle.putString("page", "1");
+                bundle.putInt("numPaginas", Integer.parseInt(numPaginas));
 
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
                 navController.navigate(R.id.nav_lectura_cuento, bundle);

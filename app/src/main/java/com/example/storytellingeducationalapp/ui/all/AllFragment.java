@@ -140,6 +140,7 @@ public class AllFragment extends Fragment {
                             cuento.txtTitle = (String)jsonObject.get("nombreCuento");
                             cuento.txtDescription = (String)jsonObject.get("sinopsis");
                             cuento.imgStory = (String)jsonObject.get("imgPortada");
+                            cuento.numPaginas = (String)jsonObject.get("numPaginas");
 
                             cuentos.add(cuento);
                         }catch (JSONException e){

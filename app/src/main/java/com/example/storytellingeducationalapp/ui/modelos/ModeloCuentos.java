@@ -11,6 +11,7 @@ public class ModeloCuentos {
     public Button btnPlay;
     public Button btnMore;
     public String imgStory;
+    public String numPaginas;
 
     public ModeloCuentos(String txtStory, String txtDescription, Button btnPlay, Button btnMore, String imgStory){
         this.txtTitle = txtStory;
