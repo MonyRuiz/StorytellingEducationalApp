@@ -14,9 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="10dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/txtTitle"
@@ -31,13 +37,13 @@
             <ImageView
                 android:id="@+id/imgPortada"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="275dp"
                 android:src="@drawable/playa" />
 
             <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="85dp"
                 android:text="Este cuento trata sobre el desamor de Juan quien después de 4 años tuvo un colapso por el recuerdo de un amor del pasado."
                 android:textAlignment="center"
                 android:textColor="#000000"
@@ -45,12 +51,11 @@
 
             <Button
                 android:id="@+id/btnPlay"
-                android:layout_width="235dp"
+                android:layout_width="200dp"
                 android:layout_height="115dp"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="80dp"
                 android:layout_marginRight="60dp"
-                android:background="@drawable/btnplay_radius"
-                android:textAlignment="center" />
+                android:background="@drawable/btnplay_radius" />
 
             <LinearLayout
                 android:layout_width="match_parent"

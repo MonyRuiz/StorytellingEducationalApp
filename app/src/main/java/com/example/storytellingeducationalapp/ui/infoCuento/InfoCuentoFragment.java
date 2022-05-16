@@ -30,6 +30,7 @@ public class InfoCuentoFragment extends Fragment {
     private ImageView imgPortada;
     private TextView txtTitle;
     private TextView txtDescription;
+    private Button btnPlay;
     private Button btnPrevious;
     private Button btnNext;
 
@@ -68,6 +69,7 @@ public class InfoCuentoFragment extends Fragment {
         txtTitle = (TextView) view.findViewById(R.id.txtTitle);
         txtDescription = (TextView) view.findViewById(R.id.txtDescription);
         imgPortada = (ImageView) view.findViewById(R.id.imgPortada);
+        btnPlay = (Button) view.findViewById(R.id.btnPlay);
         btnPrevious = (Button) view.findViewById(R.id.btnPrevious) ;
         btnNext = (Button) view.findViewById(R.id.btnNext);
 
@@ -84,6 +86,20 @@ public class InfoCuentoFragment extends Fragment {
             //Toast.makeText(context,"Error: "+exception.toString(), Toast.LENGTH_LONG).show();//display the response on screen
             Log.e("Adaptador: ",exception.toString());
         }
+
+        btnPlay.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("idStory", idStory);
+
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
+                navController.navigate(R.id.nav_lectura_cuento, bundle);
+
+            }
+        });
 
         btnPrevious.setOnClickListener(new View.OnClickListener()
         {
