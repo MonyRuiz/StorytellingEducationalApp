@@ -72,6 +72,7 @@ public class AdaptadorListaCuentos extends BaseAdapter {
                 bundle.putString("txtDescription", modeloCuentos.txtDescription);
                 bundle.putString("imgStory", modeloCuentos.imgStory);
                 bundle.putString("numPaginas", modeloCuentos.numPaginas);
+                bundle.putInt("numCuentos", cuentos.size());
 
                 NavController navController = Navigation.findNavController(context, R.id.nav_host_fragment_content_drawer);
                 navController.navigate(R.id.nav_info_story, bundle);

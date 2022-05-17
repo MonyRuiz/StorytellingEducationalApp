@@ -17,11 +17,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.storytellingeducationalapp.R;
+import com.example.storytellingeducationalapp.ui.modelos.ModeloCuentos;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class InfoCuentoFragment extends Fragment {
 
@@ -35,10 +46,13 @@ public class InfoCuentoFragment extends Fragment {
     private Button btnNext;
 
     private String idStory;
-    private String title;
-    private String description;
-    private String imgStory;
-    private String numPaginas;
+    private int numCuentos;
+
+    private RequestQueue mRequestQueue;
+    private StringRequest mStringRequest;
+    private String url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=cuentos";
+    private JSONArray resultadoJsonArray;
+    String respuesta;
 
     public static InfoCuentoFragment newInstance() {
         return new InfoCuentoFragment();
@@ -49,10 +63,9 @@ public class InfoCuentoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             idStory = getArguments().getString("idStory");
-            title = getArguments().getString("txtTitle");
-            description = getArguments().getString("txtDescription");
-            imgStory = getArguments().getString("imgStory");
-            numPaginas = getArguments().getString("numPaginas");
+            url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=cuento&id="+idStory;
+
+            numCuentos = getArguments().getInt("numCuentos");
         }
     }
 
@@ -75,69 +88,7 @@ public class InfoCuentoFragment extends Fragment {
         btnPrevious = (Button) view.findViewById(R.id.btnPrevious) ;
         btnNext = (Button) view.findViewById(R.id.btnNext);
 
-        txtTitle.setText(title);
-        txtDescription.setText(description);
-
-        try {
-            Picasso
-                    .get()
-                    .load(imgStory)
-                    //.fit()
-                    .into(imgPortada);
-        }catch (Exception exception){
-            //Toast.makeText(context,"Error: "+exception.toString(), Toast.LENGTH_LONG).show();//display the response on screen
-            Log.e("Adaptador: ",exception.toString());
-        }
-
-        btnPlay.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Bundle bundle = new Bundle();
-                bundle.putString("idStory", idStory);
-                bundle.putString("page", "1");
-                bundle.putInt("numPaginas", Integer.parseInt(numPaginas));
-
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
-                navController.navigate(R.id.nav_lectura_cuento, bundle);
-
-            }
-        });
-
-        btnPrevious.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {/*
-                Bundle bundle = new Bundle();
-                bundle.putString("idStory", modeloCuentos.txtId);
-                bundle.putString("txtTitle", modeloCuentos.txtTitle);
-                bundle.putString("txtDescription", modeloCuentos.txtDescription);
-                bundle.putString("imgStory", modeloCuentos.imgStory);
-
-                NavController navController = Navigation.findNavController(context, R.id.nav_host_fragment_content_drawer);
-                navController.navigate(R.id.nav_info_story, bundle);
-*/
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {/*
-                Bundle bundle = new Bundle();
-                bundle.putString("idStory", modeloCuentos.txtId);
-                bundle.putString("txtTitle", modeloCuentos.txtTitle);
-                bundle.putString("txtDescription", modeloCuentos.txtDescription);
-                bundle.putString("imgStory", modeloCuentos.imgStory);
-
-                NavController navController = Navigation.findNavController(context, R.id.nav_host_fragment_content_drawer);
-                navController.navigate(R.id.nav_info_story, bundle);
-*/
-            }
-        });
+        sendAndRequestResponse();
 
     }
 
@@ -146,6 +97,115 @@ public class InfoCuentoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(InfoCuentoViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    private void sendAndRequestResponse() {
+
+        //RequestQueue initialized
+        mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+        //String Request initialized
+        mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                respuesta = response;
+                //Toast.makeText(getActivity().getApplicationContext(),respuesta, Toast.LENGTH_LONG).show();//display the response on screen
+
+                try {
+                    JSONObject resultadoJSONObject = new JSONObject(respuesta);
+                    resultadoJsonArray = resultadoJSONObject.getJSONArray("Data");
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+                if(resultadoJsonArray != null){try {
+                            JSONObject jsonObject = resultadoJsonArray.getJSONObject(0);
+
+                            txtTitle.setText((String)jsonObject.get("nombreCuento"));
+                            txtDescription.setText((String)jsonObject.get("sinopsis"));
+
+                            try {
+                                Picasso
+                                        .get()
+                                        .load((String)jsonObject.get("imgPortada"))
+                                        //.fit()
+                                        .into(imgPortada);
+                            }catch (Exception exception){
+                                //Toast.makeText(context,"Error: "+exception.toString(), Toast.LENGTH_LONG).show();//display the response on screen
+                                Log.e("Adaptador: ",exception.toString());
+                            }
+
+                            idStory = (String)jsonObject.get("idCuento");
+                            String numPaginas = (String)jsonObject.get("numPaginas");
+
+                            btnPlay.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("idStory", idStory);
+                                    bundle.putString("page", "1");
+                                    bundle.putInt("numPaginas", Integer.parseInt(numPaginas));
+
+                                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
+                                    navController.navigate(R.id.nav_lectura_cuento, bundle);
+
+                                }
+                            });
+
+                            int ID = Integer.parseInt( idStory );
+                            String prevID = ID == 1? Integer.toString(numCuentos) : Integer.toString(ID-1);
+                            String nextID = ID == numCuentos? Integer.toString(1) : Integer.toString(ID+1);
+
+                            btnPrevious.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("idStory", prevID);
+                                    bundle.putInt("numCuentos", numCuentos);
+
+                                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
+                                    navController.navigate(R.id.nav_info_story, bundle);
+
+                                }
+                            });
+
+                            btnNext.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("idStory", nextID);
+                                    bundle.putInt("numCuentos", numCuentos);
+
+                                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
+                                    navController.navigate(R.id.nav_info_story, bundle);
+
+                                }
+                            });
+
+                        }catch (JSONException e){
+
+                        }
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(),"Error: El resultadoJsonArray esta vacio", Toast.LENGTH_LONG).show();//display the response on screen
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getActivity().getApplicationContext(),"Error: "+error.toString(), Toast.LENGTH_LONG).show();//display the response on screen
+
+            }
+        });
+
+        mRequestQueue.add(mStringRequest);
     }
 
 }

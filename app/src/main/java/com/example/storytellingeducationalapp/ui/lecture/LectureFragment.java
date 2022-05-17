@@ -140,7 +140,7 @@ public class LectureFragment extends Fragment {
                     mp.stop();
 
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
-                    navController.navigate(R.id.nav_home, bundle);
+                    navController.navigate(R.id.nav_all);
 
                 }
             });
