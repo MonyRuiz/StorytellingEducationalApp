@@ -14,8 +14,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:orientation="vertical">
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="20dp">
 
             <Button
                 android:id="@+id/btnAltavoz"
@@ -34,10 +36,8 @@
             <TextView
                 android:id="@+id/txtEnglish"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
-                android:text="Pepito couldn't believe what he was living through, his uncle had killed his father in a flash and now he would be remembered as Simba."
+                android:layout_height="190dp"
+                android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="18dp" />
@@ -45,17 +45,16 @@
             <TextView
                 android:id="@+id/txtSpanish"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="5dp"
-                android:text="Pepito no podía creer por lo que estaba viviendo, su tío había matado a su papá en una peda y ahora sería recordado como Simba."
+                android:layout_height="160dp"
+                android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <Button

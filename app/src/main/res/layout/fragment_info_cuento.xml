@@ -54,6 +54,7 @@
                 android:layout_width="200dp"
                 android:layout_height="115dp"
                 android:layout_marginLeft="80dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="60dp"
                 android:background="@drawable/btnplay_radius" />
 
