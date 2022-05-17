@@ -28,7 +28,6 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="El desamor de Juan"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="20dp"
@@ -38,13 +37,12 @@
                 android:id="@+id/imgPortada"
                 android:layout_width="match_parent"
                 android:layout_height="275dp"
-                android:src="@drawable/playa" />
+                 />
 
             <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
-                android:text="Este cuento trata sobre el desamor de Juan quien después de 4 años tuvo un colapso por el recuerdo de un amor del pasado."
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="18dp" />
