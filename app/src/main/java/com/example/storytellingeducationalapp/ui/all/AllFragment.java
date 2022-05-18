@@ -12,14 +12,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -50,12 +55,17 @@ public class AllFragment extends Fragment {
     private ListView listView;
     private AdaptadorListaCuentos adaptadorListaCuentos;
     private ArrayList<ModeloCuentos> cuentos;
+    private EditText searchBar;
+    private Button btnEnviar;
 
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
     private String url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=cuentos";
     private JSONArray resultadoJsonArray;
     String respuesta;
+
+    String busqueda;
+    String idCategoria;
 
     public static AllFragment newInstance() {
         return new AllFragment();
@@ -66,8 +76,15 @@ public class AllFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            String idCategoria = getArguments().getString("idCategoria");
-            url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=buscarCuentosID&idCategoria="+idCategoria;
+            busqueda = getArguments().getString("busqueda");
+            idCategoria = getArguments().getString("idCategoria");
+
+
+            if (busqueda == null) {
+                url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=buscarCuentosID&idCategoria=" + idCategoria;
+            }else{
+                url = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=buscarCuentos&busqueda=" + busqueda;
+            }
         }
     }
 
@@ -87,8 +104,26 @@ public class AllFragment extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.listStories);
         cuentos = new ArrayList<ModeloCuentos>();
+        searchBar = (EditText) view.findViewById(R.id.SearchBar);
+        btnEnviar = (Button) view.findViewById(R.id.btnEnviar);
+
+        btnEnviar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("idCategoria", idCategoria);
+                bundle.putString("busqueda", searchBar.getText().toString());
+
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
+                navController.navigate(R.id.nav_all, bundle);
+            }
+        });
 
         mostrarLista();
+
+
     }
 
     @Override

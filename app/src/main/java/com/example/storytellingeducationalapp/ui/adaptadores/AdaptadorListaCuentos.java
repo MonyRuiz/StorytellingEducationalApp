@@ -61,7 +61,7 @@ public class AdaptadorListaCuentos extends BaseAdapter {
 
         txtTitle.setText(modeloCuentos.txtTitle);
 
-        btnPlay.setOnClickListener(new View.OnClickListener()
+        btnMore.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -76,6 +76,22 @@ public class AdaptadorListaCuentos extends BaseAdapter {
 
                 NavController navController = Navigation.findNavController(context, R.id.nav_host_fragment_content_drawer);
                 navController.navigate(R.id.nav_info_story, bundle);
+
+            }
+        });
+
+        btnPlay.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("idStory", modeloCuentos.txtId);
+                bundle.putInt("numPaginas", Integer.parseInt(modeloCuentos.numPaginas));
+                bundle.putString("page", "1");
+
+                NavController navController = Navigation.findNavController(context, R.id.nav_host_fragment_content_drawer);
+                navController.navigate(R.id.nav_lectura_cuento, bundle);
 
             }
         });
