@@ -147,6 +147,7 @@ public class InfoCuentoFragment extends Fragment {
                                     bundle.putString("idStory", idStory);
                                     bundle.putString("page", "1");
                                     bundle.putInt("numPaginas", Integer.parseInt(numPaginas));
+                                    bundle.putString("voice", "On");
 
                                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
                                     navController.navigate(R.id.nav_lectura_cuento, bundle);

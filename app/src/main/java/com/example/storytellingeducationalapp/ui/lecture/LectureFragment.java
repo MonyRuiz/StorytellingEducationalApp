@@ -59,6 +59,7 @@ public class LectureFragment extends Fragment {
     private String idStory;
     private String page;
     private int numPaginas;
+    private String voice = "On";
     private String urlImg;
 
     private RequestQueue mRequestQueue;
@@ -68,6 +69,7 @@ public class LectureFragment extends Fragment {
     private String urlAPI;
 
     private final MediaPlayer mp = new MediaPlayer();
+    InputStream data;
 
     public static LectureFragment newInstance() {
         return new LectureFragment();
@@ -80,6 +82,7 @@ public class LectureFragment extends Fragment {
             idStory = getArguments().getString("idStory");
             page = getArguments().getString("page");
             numPaginas = getArguments().getInt("numPaginas");
+            voice = getArguments().getString("voice");
             urlAPI = "http://naturalbeauty.ddns.net/SEAProject/API/Controller.php?obtener=pagina&idCuento="+idStory+"&pagina="+page;
         }
     }
@@ -106,6 +109,10 @@ public class LectureFragment extends Fragment {
         txtNum1.setText(page);
         txtNum2.setText( Integer.toString(numPaginas) );
 
+        if(!voice.equals("On")){
+            btnAltavoz.setBackgroundResource(R.drawable.altavoz_mute);
+        }
+
         int paginaActual = Integer.parseInt(page);
 
         if (paginaActual == 1){
@@ -114,12 +121,13 @@ public class LectureFragment extends Fragment {
                 @Override
                 public void onClick(View v)
                 {
+                    mp.stop();
+
                     Bundle bundle = new Bundle();
                     bundle.putString("idStory", idStory);
                     bundle.putString("page", Integer.toString(paginaActual+1));
                     bundle.putInt("numPaginas", numPaginas);
-
-                    mp.stop();
+                    bundle.putString("voice", voice);
 
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
                     navController.navigate(R.id.nav_lectura_cuento, bundle);
@@ -132,12 +140,13 @@ public class LectureFragment extends Fragment {
                 @Override
                 public void onClick(View v)
                 {
+                    mp.stop();
+
                     Bundle bundle = new Bundle();
                     bundle.putString("idStory", idStory);
                     bundle.putString("page", Integer.toString(paginaActual+1));
                     bundle.putInt("numPaginas", numPaginas);
-
-                    mp.stop();
+                    bundle.putString("voice", voice);
 
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
                     navController.navigate(R.id.nav_all);
@@ -150,12 +159,13 @@ public class LectureFragment extends Fragment {
                 @Override
                 public void onClick(View v)
                 {
+                    mp.stop();
+
                     Bundle bundle = new Bundle();
                     bundle.putString("idStory", idStory);
                     bundle.putString("page", Integer.toString(paginaActual-1));
                     bundle.putInt("numPaginas", numPaginas);
-
-                    mp.stop();
+                    bundle.putString("voice", voice);
 
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
                     navController.navigate(R.id.nav_lectura_cuento, bundle);
@@ -168,12 +178,13 @@ public class LectureFragment extends Fragment {
                 @Override
                 public void onClick(View v)
                 {
+                    mp.stop();
+
                     Bundle bundle = new Bundle();
                     bundle.putString("idStory", idStory);
                     bundle.putString("page", Integer.toString(paginaActual+1));
                     bundle.putInt("numPaginas", numPaginas);
-
-                    mp.stop();
+                    bundle.putString("voice", voice);
 
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
                     navController.navigate(R.id.nav_lectura_cuento, bundle);
@@ -186,12 +197,13 @@ public class LectureFragment extends Fragment {
                 @Override
                 public void onClick(View v)
                 {
+                    mp.stop();
+
                     Bundle bundle = new Bundle();
                     bundle.putString("idStory", idStory);
                     bundle.putString("page", Integer.toString(paginaActual-1));
                     bundle.putInt("numPaginas", numPaginas);
-
-                    mp.stop();
+                    bundle.putString("voice", voice);
 
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_drawer);
                     navController.navigate(R.id.nav_lectura_cuento, bundle);
@@ -205,9 +217,13 @@ public class LectureFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                if(mp.isPlaying()){
+                if(voice.equals("On")){
+                    voice = "Off";
+                    btnAltavoz.setBackgroundResource(R.drawable.altavoz_mute);
                     mp.pause();
                 }else{
+                    voice = "On";
+                    btnAltavoz.setBackgroundResource(R.drawable.altavoz);
                     mp.start();
                 }
 
@@ -290,10 +306,12 @@ public class LectureFragment extends Fragment {
                 result -> playAudio(result.getAudioData()),
                 error -> Log.e("MyAmplifyApp", "Conversion failed", error)
         );
+
     }
 
     private void playAudio(InputStream data) {
         File mp3File = new File(getActivity().getCacheDir(), "audio.mp3");
+        this.data = data;
 
         try (OutputStream out = new FileOutputStream(mp3File)) {
             byte[] buffer = new byte[8 * 1_024];
@@ -302,12 +320,26 @@ public class LectureFragment extends Fragment {
                 out.write(buffer, 0, bytesRead);
             }
             mp.reset();
-            mp.setOnPreparedListener(MediaPlayer::start);
+
+            if(voice.equals("On")) {
+                mp.setOnPreparedListener(MediaPlayer::start);
+            }else{
+                mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mp.start();
+                        mp.pause();
+                    }
+                });
+            }
+
             mp.setDataSource(new FileInputStream(mp3File).getFD());
             mp.prepareAsync();
+
         } catch (IOException error) {
             Log.e("MyAmplifyApp", "Error writing audio file", error);
         }
+
     }
 
 }
